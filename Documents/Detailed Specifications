@@ -1,0 +1,36 @@
+The UI specifications:
+
+For both Modes:
+
+1. two buttons to select math mode vs. number mode
+2. a board of 5x5 tiles
+3. one blank tile at the bottom right of the board
+4. allow dragging of the small tiles
+5. a timer
+6. an exit/stop button
+
+Additional for Math Mode:
+
+1. a screen where new players register their names and old players enter their names
+2. a button to see the top five scores
+3. two buttons to select single player mode vs. two player mode:
+	if two player-mode is selected:
+		two buttons to choose between basic and cutthroat modes.
+
+Math Mode requirements:
+
+1. an algorithm to generate a solvable puzzle (with numbers and binary operators)
+2.Validate the user’s formulated output (after the timer ends I think)
+3. Storing the top five scores with their names in a small database
+4. comparing the new score with the stored ones:
+	Notify players when they have reached a new high score
+5. Build the connection between two connected devices on the same network (extra: I think it would be great if we can host the game on an on line server as well)
+6. same timer should be displayed for the two players 
+7. For the Basic mode, we should show the scores of each at the end of the game
+8. For the cutthroat mode: we need to synchronize between the two devices to prevent any repetitions of equations.
+9. allow multiple rounds for the two players mode and store who wins each round with the associated score.
+ 
+Number Mode requirements:
+
+1. an algorithm to generate a solvable puzzle (with numbers 1-24)
+2. an algorithm to order the tiles 
