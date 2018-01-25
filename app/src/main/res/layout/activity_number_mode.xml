@@ -7,13 +7,6 @@
     tools:context="team6.slidingtiles.NumberMode"
     android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="team6.slidingtiles.GameBoard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,5 +37,13 @@
             android:layout_height="wrap_content"
             android:text="@string/pause" />
     </LinearLayout>
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="team6.slidingtiles.GameBoard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
 
 </LinearLayout>
