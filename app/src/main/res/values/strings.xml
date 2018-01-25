@@ -3,4 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pause">Pause</string>
+    <string name="pause_menu">Pause Menu</string>
+    <string name="finish">Finished</string>
 </resources>
