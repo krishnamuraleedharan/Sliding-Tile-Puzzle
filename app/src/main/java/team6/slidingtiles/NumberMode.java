@@ -16,12 +16,25 @@ public class NumberMode extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number_mode);
 
-        timer = (Chronometer) findViewById(R.id.timer);
-        timer.start();
-
+        timer = findViewById(R.id.timer);
 
     }
 
+    //Once activity is visible, start the timer
+    @Override
+    protected void onResume(){
+        super.onResume();
+        timer.start();
+    }
+
+    //timer needs to be stopped when activity is not in the foreground
+    @Override
+    protected void onPause(){
+        super.onPause();
+        timer.stop();
+    }
+
+    //onClick for finish and pause.
     @Override
     public void onClick(View view){
         switch (view.getId()) {
@@ -29,27 +42,33 @@ public class NumberMode extends AppCompatActivity implements View.OnClickListene
 
                 break;
             case R.id.pause_button:
-                CharSequence options[] = new CharSequence[]{"Resume", "New game", "quit"};
-                timer.stop();
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.pause_menu);
-                builder.setItems(options, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i){
-                            case 0:
-                                timer.start();
-                                break;
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-
-                        }
-                    }
-                });
-                builder.show();
+                Pause();
                 break;
         }
+    }
+
+    //displays the pause menu and pauses the timer
+    void Pause(){
+        CharSequence options[] = new CharSequence[]{"Resume", "New game", "quit"};
+        timer.stop();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.pause_menu);
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i){
+                    case 0:
+                        timer.start();
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        finish();
+                        break;
+
+                }
+            }
+        });
+        builder.show();
     }
 }
