@@ -15,11 +15,12 @@ public class NumberBoardTest {
     @SuppressWarnings("unchecked")
     public void boardShuffledContainsAllNumbers() {
         NumberBoard test = new NumberBoard(true, 10);
-        Integer[][] board = test.getBoard();
+        String[][] board = test.getBoard();
         Set actual = new HashSet();
         Set expect = new HashSet();
-        for (int i = 0; i < 25; i++) {
-            expect.add(i);
+        expect.add(Board.BLANK);
+        for (int i = 1; i < 25; i++) {
+            expect.add(Integer.toString(i));
         }
         for (int i = 0; i < 5; i++) {
             actual.addAll(Arrays.asList(board[i]).subList(0, 5));

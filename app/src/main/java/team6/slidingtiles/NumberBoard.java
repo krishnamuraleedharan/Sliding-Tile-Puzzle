@@ -4,8 +4,7 @@ package team6.slidingtiles;
  * This class represents the number-based tile board.
  */
 
-public class NumberBoard extends Board<Integer> {
-    private final Integer BLANK = 0;
+public class NumberBoard extends Board {
 
     /**
      * Default NumberBoard constructor
@@ -27,10 +26,10 @@ public class NumberBoard extends Board<Integer> {
         }
 
         // create the board in a winning configuration
-        this.board = new Integer[Board.TILE_SIDE][Board.TILE_SIDE];
+        this.board = new String[Board.TILE_SIDE][Board.TILE_SIDE];
         int diff = isBlankLast ? 1 : 0;
         for (int i = 0; i < Board.TILE_COUNT; i++) {
-            this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE] = i + diff;
+            this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE] = Integer.toString(i + diff);
         }
 
         // add blank tile
@@ -53,7 +52,7 @@ public class NumberBoard extends Board<Integer> {
         // blank tile is first
         if (this.board[0][0].equals(this.BLANK)) {
             for (int i = 1; i < Board.TILE_COUNT; i++) {
-                if (this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE] != i) {
+                if (!this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE].equals(Integer.toString(i))) {
                     return false;
                 }
             }
@@ -61,7 +60,7 @@ public class NumberBoard extends Board<Integer> {
         // blank tile is last
         } else if (this.board[Board.TILE_SIDE - 1][Board.TILE_SIDE - 1].equals(this.BLANK)) {
             for (int i = 0; i < Board.TILE_COUNT - 1; i++) {
-                if (this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE] != i + 1) {
+                if (!this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE].equals(Integer.toString(i + 1))) {
                     return false;
                 }
             }
@@ -69,14 +68,6 @@ public class NumberBoard extends Board<Integer> {
         } else {
             return false;
         }
-    }
-
-    /**
-     * Get the blank tile representation
-     * @return blank tile Integer
-     */
-    Integer getBlank() {
-        return this.BLANK;
     }
 
 }
