@@ -34,9 +34,9 @@ public class NumberBoard extends Board {
 
         // add blank tile
         if (isBlankLast) {
-            this.board[Board.TILE_SIDE - 1][Board.TILE_SIDE - 1] = this.BLANK;
+            this.board[Board.TILE_SIDE - 1][Board.TILE_SIDE - 1] = Board.BLANK;
         } else {
-            this.board[0][0] = this.BLANK;
+            this.board[0][0] = Board.BLANK;
         }
 
         // shuffle the board per the difficulty setting (square of difficulty level)
@@ -50,7 +50,7 @@ public class NumberBoard extends Board {
      */
     public boolean isComplete() {
         // blank tile is first
-        if (this.board[0][0].equals(this.BLANK)) {
+        if (this.board[0][0].equals(Board.BLANK)) {
             for (int i = 1; i < Board.TILE_COUNT; i++) {
                 if (!this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE].equals(Integer.toString(i))) {
                     return false;
@@ -58,7 +58,7 @@ public class NumberBoard extends Board {
             }
             return true;
         // blank tile is last
-        } else if (this.board[Board.TILE_SIDE - 1][Board.TILE_SIDE - 1].equals(this.BLANK)) {
+        } else if (this.board[Board.TILE_SIDE - 1][Board.TILE_SIDE - 1].equals(Board.BLANK)) {
             for (int i = 0; i < Board.TILE_COUNT - 1; i++) {
                 if (!this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE].equals(Integer.toString(i + 1))) {
                     return false;

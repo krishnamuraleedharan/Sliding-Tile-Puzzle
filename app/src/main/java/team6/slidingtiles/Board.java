@@ -71,8 +71,8 @@ abstract class Board {
      */
     boolean swapTiles(int tile1X, int tile1Y, int tile2X, int tile2Y) {
         // ensure one of the supplied tile locations is blank
-        if (!this.board[tile1Y][tile1X].equals(this.BLANK) &&
-            !this.board[tile2Y][tile2X].equals(this.BLANK)) {
+        if (!this.board[tile1Y][tile1X].equals(Board.BLANK) &&
+            !this.board[tile2Y][tile2X].equals(Board.BLANK)) {
             return false;
         }
 
