@@ -1,14 +1,15 @@
 package team6.slidingtiles;
 
 /**
- * Super class for MathBoard and NumberBoard
+ * Abstract super class for MathBoard and NumberBoard
  */
 
-abstract class Board<T> {
+abstract class Board {
+    final static String BLANK = " ";
     static int TILE_SIDE = 5;
     static int TILE_COUNT = (int)(Math.pow(TILE_SIDE, 2));
 
-    T[][] board;
+    String[][] board;
 
     Board() {}
 
@@ -70,8 +71,8 @@ abstract class Board<T> {
      */
     boolean swapTiles(int tile1X, int tile1Y, int tile2X, int tile2Y) {
         // ensure one of the supplied tile locations is blank
-        if (this.board[tile1Y][tile1X] != this.getBlank() &&
-            this.board[tile2Y][tile2X] != this.getBlank()) {
+        if (!this.board[tile1Y][tile1X].equals(Board.BLANK) &&
+            !this.board[tile2Y][tile2X].equals(Board.BLANK)) {
             return false;
         }
 
@@ -85,7 +86,7 @@ abstract class Board<T> {
 
             // ensure Manhattan distance between tiles is exactly one, then swap
             if (xDiff + yDiff == 1) {
-                T temp = this.board[tile1Y][tile1X];
+                String temp = this.board[tile1Y][tile1X];
                 this.board[tile1Y][tile1X] = this.board[tile2Y][tile2X];
                 this.board[tile2Y][tile2X] = temp;
                 return true;
@@ -98,13 +99,8 @@ abstract class Board<T> {
      * Gets the current board configuration
      * @return the board
      */
-    T[][] getBoard() {
+    String[][] getBoard() {
         return this.board;
     }
-
-    /**
-     * Get the blank tile representation
-     */
-    abstract T getBlank();
 
 }
