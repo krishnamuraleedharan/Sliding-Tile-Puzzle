@@ -11,6 +11,7 @@ import android.widget.Chronometer;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class NumberMode extends AppCompatActivity implements View.OnClickListener {
@@ -117,10 +118,8 @@ public class NumberMode extends AppCompatActivity implements View.OnClickListene
     String[] convertDimm(String[][] oldArray){
         ArrayList<String> tmp = new ArrayList<>();
         String newArray[] = new String[oldArray.length * oldArray[0].length];
-        for (int i = 0; i < oldArray.length; i++){
-            for (int j = 0; j < oldArray[0].length; j++){
-                tmp.add(oldArray[i][j]);
-            }
+        for (String[] array : oldArray) {
+            tmp.addAll(Arrays.asList(array));
         }
         return tmp.toArray(newArray);
     }
