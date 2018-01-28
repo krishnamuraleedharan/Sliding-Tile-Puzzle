@@ -34,14 +34,17 @@ public class NumberBoard extends Board {
 
         // add blank tile
         if (isBlankLast) {
-            this.board[Board.TILE_SIDE - 1][Board.TILE_SIDE - 1] = Board.BLANK;
+            this.blankX = Board.TILE_SIDE - 1;
+            this.blankY = Board.TILE_SIDE - 1;
         } else {
-            this.board[0][0] = Board.BLANK;
+            this.blankX = 0;
+            this.blankY = 0;
         }
+        this.board[this.blankY][this.blankX] = Board.BLANK;
 
         // shuffle the board per the difficulty setting (square of difficulty level)
         int shuffles = (int)(Math.pow(difficulty, 2));
-        shuffle(shuffles, isBlankLast);
+        shuffle(shuffles);
     }
 
     /**
