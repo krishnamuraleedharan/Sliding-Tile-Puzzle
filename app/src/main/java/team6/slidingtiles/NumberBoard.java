@@ -73,4 +73,21 @@ public class NumberBoard extends Board {
         }
     }
 
+    /**
+     * Creates a string representation of the NumberBoard
+     * @return a string version of the board
+     */
+    public String toString() {
+        int maxChars = Integer.toString(Board.TILE_COUNT - 1).length();
+        StringBuilder boardString = new StringBuilder("\n+----+----+----+----+----+");
+        for (int i = 0; i < Board.TILE_SIDE; i++) {
+            boardString.append("\n|");
+            for (int j = 0; j < Board.TILE_SIDE; j++) {
+                boardString.append(String.format("%"+ (maxChars + 1) + "s |", board[i][j]));
+            }
+            boardString.append("\n+----+----+----+----+----+");
+        }
+        return boardString.append("\n").toString();
+    }
+
 }

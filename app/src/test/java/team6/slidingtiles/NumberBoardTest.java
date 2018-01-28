@@ -12,12 +12,11 @@ import static org.junit.Assert.assertTrue;
  */
 public class NumberBoardTest {
     @Test
-    @SuppressWarnings("unchecked")
-    public void boardShuffledContainsAllNumbers() {
+    public void boardConstructedContainsAllNumbers() {
         NumberBoard test = new NumberBoard(true, 10);
         String[][] board = test.getBoard();
-        Set actual = new HashSet();
-        Set expect = new HashSet();
+        Set<String> actual = new HashSet<>();
+        Set<String> expect = new HashSet<>();
         expect.add(Board.BLANK);
         for (int i = 1; i < 25; i++) {
             expect.add(Integer.toString(i));
@@ -28,5 +27,35 @@ public class NumberBoardTest {
         assertEquals(5, board.length);
         assertEquals(5, board[0].length);
         assertTrue(actual.containsAll(expect));
-   }
+    }
+
+    @Test
+    public void swapWithAdjacentWorks() {
+        NumberBoard test = new NumberBoard(true, 1);
+        boolean success = test.swapTiles(Board.TILE_SIDE - 1, Board.TILE_SIDE - 1);
+        assertTrue(success);
+    }
+
+    @Test
+    public void swapWithNonAdjacentFails() {
+        NumberBoard test = new NumberBoard(true, 1);
+        boolean success = test.swapTiles(0, 0);
+        assertTrue(!success);
+    }
+
+    @Test
+    public void completeBoardIsComplete() {
+        NumberBoard test = new NumberBoard(true, 1);
+        test.swapTiles(Board.TILE_SIDE - 1, Board.TILE_SIDE - 1);
+        boolean success = test.isComplete();
+        assertTrue(success);
+    }
+
+    @Test
+    public void incompleteBoardIsNotComplete() {
+        NumberBoard test = new NumberBoard(true, 1);
+        boolean success = test.isComplete();
+        assertTrue(!success);
+    }
+
 }
