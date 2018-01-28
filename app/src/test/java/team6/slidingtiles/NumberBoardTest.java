@@ -28,5 +28,5 @@ public class NumberBoardTest {
         assertEquals(5, board.length);
         assertEquals(5, board[0].length);
         assertTrue(actual.containsAll(expect));
-    }
+   }
 }
