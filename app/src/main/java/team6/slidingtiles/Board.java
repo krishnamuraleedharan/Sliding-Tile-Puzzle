@@ -19,7 +19,7 @@ abstract class Board {
      * Shuffles the Board
      * @param iterations Number of times to shuffle the blank and an adjacent tile
      */
-    void shuffle(int iterations) {
+    protected void shuffle(int iterations) {
         int direction;
         int tileX;
         int tileY;
