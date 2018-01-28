@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class NumberMode extends AppCompatActivity implements View.OnClickListener {
     Chronometer timer;
@@ -104,9 +106,23 @@ public class NumberMode extends AppCompatActivity implements View.OnClickListene
 
     void CreateGame(){
         gameBoard = new NumberBoard(true, difficulty);
+        String tmp[][] = gameBoard.getBoard();
+        String boardRep[] = convertDimm(tmp);
+
         timer.setBase(SystemClock.elapsedRealtime());
         timePaused = 0;
         timer.start();
+    }
+
+    String[] convertDimm(String[][] oldArray){
+        ArrayList<String> tmp = new ArrayList<>();
+        String newArray[] = new String[oldArray.length * oldArray[0].length];
+        for (int i = 0; i < oldArray.length; i++){
+            for (int j = 0; j < oldArray[0].length; j++){
+                tmp.add(oldArray[i][j]);
+            }
+        }
+        return tmp.toArray(newArray);
     }
 
     //displays the pause menu and pauses the timer
