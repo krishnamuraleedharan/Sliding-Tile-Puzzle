@@ -58,4 +58,18 @@ public class NumberBoardTest {
         assertTrue(!success);
     }
 
+    @Test
+    public void boardCopyIsDeepCopy() {
+        NumberBoard test = new NumberBoard(true, 1);
+        String[][] copy = test.getBoard();
+        // make copy invalid
+        copy[Board.TILE_SIDE - 1][Board.TILE_SIDE - 1] = "FAIL";
+
+        // complete game and check for success
+        boolean successSwap = test.swapTiles(Board.TILE_SIDE - 1, Board.TILE_SIDE - 1);
+        boolean successComplete = test.isComplete();
+        assertTrue(successSwap);
+        assertTrue(successComplete);
+    }
+
 }
