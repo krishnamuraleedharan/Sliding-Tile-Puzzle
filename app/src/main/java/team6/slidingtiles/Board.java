@@ -84,7 +84,11 @@ abstract class Board {
      * @return the board
      */
     String[][] getBoard() {
-        return this.board;
+        String[][] copy = new String[Board.TILE_SIDE][Board.TILE_SIDE];
+        for (int i = 0; i < Board.TILE_SIDE; i++) {
+            System.arraycopy(this.board[i], 0, copy[i], 0, Board.TILE_SIDE);
+        }
+        return copy;
     }
 
 }
