@@ -1,49 +1,43 @@
 package team6.slidingtiles;
 
-import android.content.DialogInterface;
+import android.icu.text.MeasureFormat;
 import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.text.Layout;
+import android.view.Gravity;
 import android.widget.Chronometer;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import org.w3c.dom.Text;
 
 
-public class NumberMode extends AppCompatActivity implements View.OnClickListener {
+public class NumberMode extends GameMode {
     Chronometer timer;
-    Button      finishBttn, pauseBttn;
     long        timePaused;
     NumberBoard gameBoard;
-    int         difficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_number_mode);
-
         gameBoard = null;
-        timer = findViewById(R.id.timer);
         timePaused = 0;
-        finishBttn = findViewById(R.id.finish_button);
-        pauseBttn = findViewById(R.id.pause_button);
-        finishBttn.setOnClickListener(this);
-        pauseBttn.setOnClickListener(this);
-        difficulty = 0;
+        toolbarLayout = new LinearLayout(this);
+        timer = new Chronometer(this);
+        timer.setGravity(Gravity.CENTER);
+        timer.setTextSize(40);
+
+        toolbarLayout.addView(timer);
+
+        super.onCreate(savedInstanceState);
     }
 
     //Once activity is visible, start the timer
     @Override
     protected void onResume(){
         super.onResume();
-        if(difficulty != 0)
+        if(gameBoard!=null)
             resumeTimer();
-        else
-            NewGame();
     }
 
     //timer needs to be stopped when activity is not in the foreground
@@ -54,21 +48,13 @@ public class NumberMode extends AppCompatActivity implements View.OnClickListene
     }
 
     //onClick for finish and pause.
-    @Override
-    public void onClick(View view){
-        switch (view.getId()) {
-            case R.id.finish_button:
-                if (gameBoard.isComplete())
-                    Toast.makeText(this, "finished", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(this, "not finished", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.pause_button:
-                Pause();
-                break;
-        }
+//    @Override
+/*    public void onClick(View view){
+        if (view == pauseBttn)
+            pauseTimer();
+        super.onClick(view);
     }
-
+*/
     void pauseTimer(){
         timePaused = timer.getBase() - SystemClock.elapsedRealtime();
         timer.stop();
@@ -79,82 +65,25 @@ public class NumberMode extends AppCompatActivity implements View.OnClickListene
         timer.start();
     }
 
-    void NewGame() {
+    void newGame() {
         pauseTimer();
-        CharSequence options[] = new CharSequence[]{"easy", "normal", "hard"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Difficulty");
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i){
-                    case 0:
-                        difficulty = 1;
-                        break;
-                    case 1:
-                        difficulty = 2;
-                        break;
-                    case 3:
-                        difficulty = 3;
-                        break;
-                }
-                CreateGame();
-            }
-        });
-        builder.setCancelable(false);
-        builder.show();
+        super.newGame();
     }
 
-    void CreateGame(){
+    void createGame(){
         gameBoard = new NumberBoard(true, difficulty);
-        String tmp[][] = gameBoard.getBoard();
-        String boardRep[] = convertDimm(tmp);
-
+        SetBoard(gameBoard);
         timer.setBase(SystemClock.elapsedRealtime());
         timePaused = 0;
         timer.start();
     }
 
-    String[] convertDimm(String[][] oldArray){
-        ArrayList<String> tmp = new ArrayList<>();
-        String newArray[] = new String[oldArray.length * oldArray[0].length];
-        for (String[] array : oldArray) {
-            tmp.addAll(Arrays.asList(array));
-        }
-        return tmp.toArray(newArray);
+    //displays the pause menu and pauses the timer
+    AlertDialog.Builder pause(){
+        pauseTimer();
+        return super.pause();
     }
 
-    //displays the pause menu and pauses the timer
-    void Pause(){
-        CharSequence options[] = new CharSequence[]{"Resume", "New game", "quit"};
-        pauseTimer();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.pause_menu);
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i){
-                    case 0:
-                        resumeTimer();
-                        break;
-                    case 1:
-                        difficulty = 0;
-                        NewGame();
-                        break;
-                    case 2:
-                        finish();
-                        break;
-                }
-            }
-        });
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                if (difficulty != 0)
-                    resumeTimer();
-            }
-        });
-        builder.show();
-    }
+
 
 }
