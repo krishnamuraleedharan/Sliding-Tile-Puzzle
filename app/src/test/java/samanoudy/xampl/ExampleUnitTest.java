@@ -1,4 +1,4 @@
-package com.example.samanoudy.sample;
+package samanoudy.xampl;
 
 import org.junit.Test;
 
