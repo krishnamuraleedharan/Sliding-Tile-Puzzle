@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,11 @@ public class fragment01 extends Fragment {
     public ImageButton blankTile;
     public ImageButton blankT;
     public Object pos;
+    public int blank_pos = 24;
+    public int selected_pos;
+
+    public int k;
+    public int r;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,53 +102,17 @@ public class fragment01 extends Fragment {
         blankT = (ImageButton) v.findViewById(R.id.button26);
         blankTile = (ImageButton) v.findViewById(R.id.button25);
 
-        ib1.setTag(R.id.button1);
-        ib2.setTag(R.id.button2);
-        ib3.setTag(R.id.button3);
-        ib4.setTag(R.id.button4);
-        ib5.setTag(R.id.button5);
-        ib6.setTag(R.id.button6);
-        ib7.setTag(R.id.button7);
-        ib8.setTag(R.id.button8);
-        ib9.setTag(R.id.button9);
-        ib10.setTag(R.id.button10);
-        ib11.setTag(R.id.button11);
-        ib12.setTag(R.id.button12);
-        ib13.setTag(R.id.button13);
-        ib14.setTag(R.id.button14);
-        ib15.setTag(R.id.button15);
-        ib16.setTag(R.id.button16);
-        ib17.setTag(R.id.button17);
-        ib18.setTag(R.id.button18);
-        ib19.setTag(R.id.button19);
-        ib20.setTag(R.id.button20);
-        ib21.setTag(R.id.button21);
-        ib22.setTag(R.id.button22);
-        ib23.setTag(R.id.button23);
-        ib24.setTag(R.id.button24);
-        ib25.setTag(R.id.button25);
-        ib26.setTag(R.id.button26);
-
-
-      //  ib1= v.findViewWithTag(ib16.getTag());
-
-
-        //blankTile = (ImageButton) v.findViewById(pos);
 
         ib1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Tile1", Toast.LENGTH_SHORT).show();
-                //check here that I can actually do the swap thing
-               //blankTile= track(v);
-
-
+                selected_pos = 0;
                 track(v);
-              // blankTile.setBackground(ib1.getBackground());
-                //ib1= (ImageButton) v.findViewWithTag(ib16.getTag());
-                blankTile.setBackground(ib1.getBackground());
-                ib1.setBackground(ib26.getBackground());
-
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib1.getBackground());
+                    ib1.setBackground(ib26.getBackground());
+                }
             }
         });
 
@@ -150,12 +120,13 @@ public class fragment01 extends Fragment {
         ib2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Tile2", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 1;
                 track(v);
-                blankTile.setBackground(ib2.getBackground());
-                ib2.setBackground(ib26.getBackground());
-
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib2.getBackground());
+                    ib2.setBackground(ib26.getBackground());
+                }
             }
         });
 
@@ -163,11 +134,13 @@ public class fragment01 extends Fragment {
         ib3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Tile3", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 2;
                 track(v);
-                blankTile.setBackground(ib3.getBackground());
-                ib3.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib3.getBackground());
+                    ib3.setBackground(ib26.getBackground());
+                }
             }
         });
 
@@ -175,12 +148,13 @@ public class fragment01 extends Fragment {
         ib4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Tile4", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 3;
                 track(v);
-                blankTile.setBackground(ib4.getBackground());
-                ib4.setBackground(ib26.getBackground());
-
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib4.getBackground());
+                    ib4.setBackground(ib26.getBackground());
+                }
             }
         });
 
@@ -188,11 +162,13 @@ public class fragment01 extends Fragment {
         ib5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Tile5", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 4;
                 track(v);
-                blankTile.setBackground(ib5.getBackground());
-                ib5.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib5.getBackground());
+                    ib5.setBackground(ib26.getBackground());
+                }
             }
         });
 
@@ -200,11 +176,13 @@ public class fragment01 extends Fragment {
         ib6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Tile6", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 5;
                 track(v);
-                blankTile.setBackground(ib6.getBackground());
-                ib6.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib6.getBackground());
+                    ib6.setBackground(ib26.getBackground());
+                }
             }
         });
 
@@ -212,93 +190,104 @@ public class fragment01 extends Fragment {
         ib7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Tile7", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 6;
                 track(v);
-                blankTile.setBackground(ib7.getBackground());
-                ib7.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib7.getBackground());
+                    ib7.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Tile8", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 7;
                 track(v);
-                blankTile.setBackground(ib8.getBackground());
-                ib8.setBackground(ib26.getBackground());
-
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib8.getBackground());
+                    ib8.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(getActivity(), "Tile9", Toast.LENGTH_SHORT).show();
-               // blankTile= track(v);
+                selected_pos = 8;
                 track(v);
-                blankTile.setBackground(ib9.getBackground());
-                ib9.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib9.getBackground());
+                    ib9.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Tile10", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 9;
                 track(v);
-
-                blankTile.setBackground(ib10.getBackground());
-                ib10.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib10.getBackground());
+                    ib10.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(getActivity(), "Tile11", Toast.LENGTH_SHORT).show();
-               // blankTile= track(v);
+                selected_pos = 10;
                 track(v);
-
-                blankTile.setBackground(ib11.getBackground());
-                ib11.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib11.getBackground());
+                    ib11.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "Tile12", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 11;
                 track(v);
-
-                blankTile.setBackground(ib12.getBackground());
-                ib12.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib12.getBackground());
+                    ib12.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "Tile13", Toast.LENGTH_SHORT).show();
-               // blankTile= track(v);
+                selected_pos = 12;
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
                 track(v);
-                blankTile.setBackground(ib13.getBackground());
-                ib13.setBackground(ib26.getBackground());
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib13.getBackground());
+                    ib13.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "Tile14", Toast.LENGTH_SHORT).show();
-               // blankTile= track(v);
+                selected_pos = 13;
                 track(v);
-
-                blankTile.setBackground(ib14.getBackground());
-                ib14.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib14.getBackground());
+                    ib14.setBackground(ib26.getBackground());
+                }
             }
         });
 
@@ -306,23 +295,26 @@ public class fragment01 extends Fragment {
         ib15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "Tile15", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 14;
                 track(v);
-
-                blankTile.setBackground(ib15.getBackground());
-                ib15.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib15.getBackground());
+                    ib15.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "Tile16", Toast.LENGTH_SHORT).show();
-                //lankTile= track(v);
+                selected_pos = 15;
                 track(v);
-                blankTile.setBackground(ib16.getBackground());
-                ib16.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib16.getBackground());
+                    ib16.setBackground(ib26.getBackground());
+                }
             }
         });
 
@@ -330,11 +322,13 @@ public class fragment01 extends Fragment {
         ib17.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "Tile17", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 16;
                 track(v);
-                blankTile.setBackground(ib17.getBackground());
-                ib17.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib17.getBackground());
+                    ib17.setBackground(ib26.getBackground());
+                }
             }
         });
 
@@ -342,91 +336,106 @@ public class fragment01 extends Fragment {
         ib18.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "Tile18", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 17;
                 track(v);
-                blankTile.setBackground(ib18.getBackground());
-                ib18.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib18.getBackground());
+                    ib18.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib19.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "Tile19", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 18;
                 track(v);
-                blankTile.setBackground(ib19.getBackground());
-                ib19.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib19.getBackground());
+                    ib19.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib20.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "Tile20", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 19;
                 track(v);
-                blankTile.setBackground(ib20.getBackground());
-                ib20.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib20.getBackground());
+                    ib20.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib21.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), "Tile21", Toast.LENGTH_SHORT).show();
+                selected_pos = 20;
                 track(v);
-                //blankTile= track(v);
-                blankTile.setBackground(ib21.getBackground());
-                ib21.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib21.getBackground());
+                    ib21.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib22.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(getActivity(), "Tile22", Toast.LENGTH_SHORT).show();
+                selected_pos = 21;
                 track(v);
-                //blankTile= track(v);
-                blankTile.setBackground(ib22.getBackground());
-                ib22.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib22.getBackground());
+                    ib22.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib23.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toast.makeText(getActivity(), "Tile23", Toast.LENGTH_SHORT).show();
-                //blankTile= track(v);
+                selected_pos = 22;
                 track(v);
-                blankTile.setBackground(ib23.getBackground());
-                ib23.setBackground(ib26.getBackground());
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib23.getBackground());
+                    ib23.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib24.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "Tile24", Toast.LENGTH_SHORT).show();
-               track(v);
-                blankTile.setBackground(ib24.getBackground());
-                ib24.setBackground(ib26.getBackground());
+                selected_pos = 23;
+                track(v);
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib24.getBackground());
+                    ib24.setBackground(ib26.getBackground());
+                }
             }
         });
 
         ib25.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //   Toast.makeText(getActivity(), "BlankTile", Toast.LENGTH_SHORT).show();
+                selected_pos = 24;
                 track(v);
-                blankTile.setBackground(ib25.getBackground());
-                ib25.setBackground(ib26.getBackground());
-                //  Drawable s= (Drawable) ib22.getBackground();
-                // ib25.setImageDrawable(s);
+                ((MainActivity) getActivity()).get_positions(blank_pos, selected_pos);
+                if (((MainActivity) getActivity()).check()) {
+                    blankTile.setBackground(ib25.getBackground());
+                    ib25.setBackground(ib26.getBackground());
+                }
             }
         });
-
 
         return v;
     }
@@ -435,60 +444,94 @@ public class fragment01 extends Fragment {
     public void track(View v) {
 
         //int pos = ib25.getId();
-        if (ib1.getBackground().equals( ib26.getBackground()))
+        if (ib1.getBackground().equals(ib26.getBackground())) {
             blankTile = ib1;
-        else if (ib2.getBackground() == ib26.getBackground())
+            blank_pos = 0;
+        } else if (ib2.getBackground().equals(ib26.getBackground())) {
             blankTile = ib2;
-        else if (ib3.getBackground() == ib26.getBackground())
+            blank_pos = 1;
+        } else if (ib3.getBackground().equals(ib26.getBackground())) {
             blankTile = ib3;
-        else if (ib4.getBackground() == ib26.getBackground())
+            blank_pos = 2;
+        } else if (ib4.getBackground().equals(ib26.getBackground())) {
             blankTile = ib4;
-        else if (ib5.getBackground() == ib26.getBackground())
+            blank_pos = 3;
+        } else if (ib5.getBackground().equals(ib26.getBackground())) {
             blankTile = ib5;
-        else if (ib6.getBackground() == ib26.getBackground())
+            blank_pos = 4;
+        } else if (ib6.getBackground().equals(ib26.getBackground())) {
             blankTile = ib6;
-        else if (ib7.getBackground() == ib26.getBackground())
+            blank_pos = 5;
+        } else if (ib7.getBackground().equals(ib26.getBackground())) {
             blankTile = ib7;
-        else if (ib8.getBackground() == ib26.getBackground())
+            blank_pos = 6;
+        } else if (ib8.getBackground().equals(ib26.getBackground())) {
             blankTile = ib8;
-        else if (ib9.getBackground() == ib26.getBackground())
+            blank_pos = 7;
+        } else if (ib9.getBackground().equals(ib26.getBackground())) {
             blankTile = ib9;
-        else if (ib10.getBackground() == ib26.getBackground())
+            blank_pos = 8;
+        } else if (ib10.getBackground().equals(ib26.getBackground())) {
             blankTile = ib10;
-        else if (ib11.getBackground() == ib26.getBackground())
+            blank_pos = 9;
+        } else if (ib11.getBackground().equals(ib26.getBackground())) {
             blankTile = ib11;
-        else if (ib12.getBackground() == ib26.getBackground())
+            blank_pos = 10;
+        } else if (ib12.getBackground().equals(ib26.getBackground())) {
             blankTile = ib12;
-        else if (ib13.getBackground() == ib26.getBackground())
+            blank_pos = 11;
+        } else if (ib13.getBackground().equals(ib26.getBackground())) {
             blankTile = ib13;
-        else if (ib14.getBackground() == ib26.getBackground())
+            blank_pos = 12;
+        } else if (ib14.getBackground().equals(ib26.getBackground())) {
             blankTile = ib14;
-        else if (ib15.getBackground() == ib26.getBackground())
+            blank_pos = 13;
+        } else if (ib15.getBackground().equals(ib26.getBackground())) {
             blankTile = ib15;
-        else if (ib16.getBackground() == ib26.getBackground())
+            blank_pos = 14;
+        } else if (ib16.getBackground().equals(ib26.getBackground())) {
             blankTile = ib16;
-        else if (ib17.getBackground() == ib26.getBackground())
+            blank_pos = 15;
+        } else if (ib17.getBackground().equals(ib26.getBackground())) {
             blankTile = ib17;
-        else if (ib18.getBackground() == ib26.getBackground())
+            blank_pos = 16;
+        } else if (ib18.getBackground().equals(ib26.getBackground())) {
             blankTile = ib18;
-        else if (ib19.getBackground() == ib26.getBackground())
+            blank_pos = 17;
+        } else if (ib19.getBackground().equals(ib26.getBackground())) {
             blankTile = ib19;
-        else if (ib20.getBackground() == ib26.getBackground())
+            blank_pos = 18;
+        } else if (ib20.getBackground().equals(ib26.getBackground())) {
             blankTile = ib20;
-        else if (ib21.getBackground() == ib26.getBackground())
+            blank_pos = 19;
+        } else if (ib21.getBackground().equals(ib26.getBackground())) {
             blankTile = ib21;
-        else if (ib22.getBackground() == ib26.getBackground())
+            blank_pos = 20;
+        } else if (ib22.getBackground().equals(ib26.getBackground())) {
             blankTile = ib22;
-        else if (ib23.getBackground() == ib26.getBackground())
+            blank_pos = 21;
+        } else if (ib23.getBackground().equals(ib26.getBackground())) {
             blankTile = ib23;
-        else if (ib24.getBackground() == ib26.getBackground())
+            blank_pos = 22;
+        } else if (ib24.getBackground().equals(ib26.getBackground())) {
             blankTile = ib24;
-        else if (ib25.getBackground().equals( ib26.getBackground()))
+            blank_pos = 23;
+        } else if (ib25.getBackground().equals(ib26.getBackground())) {
             blankTile = ib25;
-
-
-      //  blankTile = (ImageButton) v.findViewWithTag(pos);
-    //return blankT;
+            blank_pos = 24;
+        }
     }
-}
 
+
+    public int track_blank() {
+        // System.out.print(blank_pos);
+        Log.d(String.valueOf(blank_pos), "This is my message");
+        return blank_pos;
+    }
+
+    public int track_selected() {
+        Log.d(String.valueOf(selected_pos), "as message");
+        return selected_pos;
+    }
+
+}
