@@ -1,8 +1,10 @@
 package team6.slidingtiles;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.icu.text.MeasureFormat;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.text.Layout;
@@ -34,6 +36,7 @@ public class NumberMode extends GameMode implements fragment01.SelectionHandler 
         timer = new Chronometer(this);
         timer.setGravity(Gravity.CENTER);
         timer.setTextSize(40);
+        timer.setTextColor(Color.parseColor("#ffffff"));
 
         toolbarLayout.addView(timer);
 

@@ -2,6 +2,7 @@ package team6.slidingtiles;
 
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public abstract class GameMode extends AppCompatActivity implements fragment01.S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_mode);
         toolbar = findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(Color.parseColor("#000000"));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         boardFragment = fragment01.newInstance();
