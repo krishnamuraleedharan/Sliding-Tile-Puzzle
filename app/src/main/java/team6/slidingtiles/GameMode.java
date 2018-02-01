@@ -1,6 +1,8 @@
 package team6.slidingtiles;
 
+import android.app.Fragment;
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,12 +19,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public abstract class GameMode extends AppCompatActivity
-{
+public abstract class GameMode extends AppCompatActivity implements fragment01.SelectionHandler {
+    public final String ARG_BOARD = "boardArray";
     int         difficulty;
     Toolbar     toolbar;
     ImageView menuIcon;
     LinearLayout toolbarLayout;
+    fragment01 boardFragment;
+    ArrayList<String> boardLayout;
+    int blankTile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,9 @@ public abstract class GameMode extends AppCompatActivity
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        boardFragment = fragment01.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragmentFrame, boardFragment).commit();
 
 
         menuIcon = new ImageView(this);
@@ -45,7 +54,6 @@ public abstract class GameMode extends AppCompatActivity
             }
         });
 
-
         if (toolbarLayout == null)
             toolbarLayout = new LinearLayout(this);
 
@@ -54,6 +62,8 @@ public abstract class GameMode extends AppCompatActivity
 
         difficulty = 0;
         newGame();
+
+
     }
 
     AlertDialog.Builder newGameDialog() {
@@ -82,13 +92,12 @@ public abstract class GameMode extends AppCompatActivity
         return builder;
     }
 
-    String[] convertDimm(String[][] oldArray){
+    ArrayList<String> convertDimm(String[][] oldArray){
         ArrayList<String> tmp = new ArrayList<>();
-        String newArray[] = new String[oldArray.length * oldArray[0].length];
         for (String[] array : oldArray) {
             tmp.addAll(Arrays.asList(array));
         }
-        return tmp.toArray(newArray);
+        return tmp;
     }
 
     void newGame(){
@@ -97,7 +106,13 @@ public abstract class GameMode extends AppCompatActivity
     }
 
     void SetBoard(Board board) {
-        String tmp[] = convertDimm(board.getBoard());
+
+        boardLayout = convertDimm(board.getBoard());
+        for(int i = 0; i < boardLayout.size(); i++)
+            if (boardLayout.get(i).compareTo(" ")==0)
+                blankTile = i;
+        boardFragment.setBoardLayout(boardLayout);
+
     }
 
     abstract void createGame();
@@ -133,5 +148,12 @@ public abstract class GameMode extends AppCompatActivity
         });
         return builder;
     }
+
+    abstract boolean moveTile(int pos);
+
+    public boolean handleSelection(int pos){
+        return moveTile(pos);
+    }
+
 }
 
