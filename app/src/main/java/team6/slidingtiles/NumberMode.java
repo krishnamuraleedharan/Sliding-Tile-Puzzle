@@ -140,12 +140,8 @@ public class NumberMode extends GameMode implements fragment01.SelectionHandler 
             }
         });
 
-        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialogInterface) {
-                onResume();
-            }
-        });
+        pauseTimer();
+        builder.setCancelable(false);
         builder.show();
 
     }

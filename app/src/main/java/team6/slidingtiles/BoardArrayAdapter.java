@@ -55,7 +55,6 @@ public class BoardArrayAdapter extends BaseAdapter {
             imageView.setImageResource(tiles[0]);
         else
             imageView.setImageResource(tiles[Integer.valueOf(boardLayout.get(position))]);
-        imageView.setMaxHeight(height / 5);
         return imageView;
     }
 
