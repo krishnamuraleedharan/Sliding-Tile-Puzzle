@@ -65,7 +65,6 @@ public class BoardArrayAdapter extends BaseAdapter {
         else
             imageView = (ImageView) convertView;
 
-
         imageView.setMinimumHeight(height);
 
         if (boardLayout.get(position).compareTo(" ") == 0)

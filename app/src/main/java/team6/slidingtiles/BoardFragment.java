@@ -69,10 +69,7 @@ public class BoardFragment extends Fragment {
         boardGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(selectionHandler.handleSelection(i)) {
-                    boardGrid.invalidateViews();
-                    boardGrid.setAdapter(adapter);
-                }
+                selectionHandler.handleSelection(i);
             }
         });
     }
