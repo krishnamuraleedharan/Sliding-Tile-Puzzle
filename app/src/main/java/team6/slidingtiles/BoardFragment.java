@@ -1,20 +1,13 @@
 package team6.slidingtiles;
 
 
-import android.app.Activity;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageButton;
-import android.widget.Toast;
-import android.content.Context;
 
 import java.util.ArrayList;
 
@@ -22,50 +15,53 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class fragment01 extends Fragment {
-
-
-    //global variables
-
-
-    public fragment01() {
+public class BoardFragment extends Fragment {
+    public BoardFragment() {
         // Required empty public constructor
     }
 
-    //to do get a flag into this fragment and check that this movement can be really dome
-    //check with a simple and and for the conditions
+    private SelectionHandler selectionHandler;
+    private GridView boardGrid;
 
-    public static final String ARG_BOARD_ARRAY = "boardArray";
-    public int layoutH;
-
-    SelectionHandler selectionHandler;
-    public ArrayList<String> boardArray;
-    public GridView boardGrid;
-
-
-
+    /**
+     *
+     * @param inflater the layout inflater to be used
+     * @param container the layout containing the fragment
+     * @param savedInstanceState the saved instance state if there is one
+     * @return returns the new fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_fragment01, container, false);
+        View v = inflater.inflate(R.layout.fragment_board, container, false);
         selectionHandler = (SelectionHandler) getActivity();
         return v;
     }
 
 
+    /**
+     * @param savedInstanceState the saved instance state to be restored
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
     }
 
-    public static fragment01 newInstance() {
-        return new fragment01();
+    /**
+     * @return a new instance of this fragment
+     */
+    public static BoardFragment newInstance() {
+        return new BoardFragment();
     }
 
+    /**
+     * changes the boardLayout displayed in the gridview
+     * @param boardLayout the boardLayout ArrayList to be displayed in the gridview
+     */
     public void setBoardLayout(ArrayList<String> boardLayout) {
-        BoardArrayAdapter adapter = new BoardArrayAdapter
+        final BoardArrayAdapter adapter = new BoardArrayAdapter
                 (getView().getContext(), boardLayout, getView().getHeight());
         boardGrid = getView().findViewById(R.id.board_grid);
         boardGrid.invalidateViews();
@@ -74,11 +70,16 @@ public class fragment01 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(selectionHandler.handleSelection(i)) {
+                    boardGrid.invalidateViews();
+                    boardGrid.setAdapter(adapter);
                 }
             }
         });
     }
 
+    /**
+     * interface to handle communication from the fragment to activity
+     */
     public interface SelectionHandler{
         boolean handleSelection(int position);
     }

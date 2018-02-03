@@ -99,7 +99,6 @@ abstract class Board implements Parcelable{
         return copy;
     }
 
-
     public int describeContents() {
         return 0;
     }

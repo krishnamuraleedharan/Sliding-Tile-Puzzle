@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="team6.slidingtiles.fragment01">
+
+    tools:context="team6.slidingtiles.BoardFragment">
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/board_grid"
@@ -13,5 +13,4 @@
         android:numColumns="5">
 
     </GridView>
-
 </RelativeLayout>

@@ -1,58 +1,70 @@
 package team6.slidingtiles;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by cheesea on 2/1/18.
  */
+
 
 public class BoardArrayAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<String> boardLayout;
     private int height;
 
-    public BoardArrayAdapter(Context context, ArrayList<String> boardLayout, int height) {
+    /**
+     * constructor for the adapter.
+     * @param context context
+     * @param boardLayout the current board layout as an ArrayList
+     * @param height the height of the containing activity
+     */
+    BoardArrayAdapter(Context context, ArrayList<String> boardLayout, int height) {
         super();
         this.context = context;
         this.boardLayout = boardLayout;
         this.height = height/5;
     }
 
+    /**
+     * @return the number of strings in the board layout
+     */
     public int getCount() {
         return boardLayout.size();
     }
 
+    /**
+     * @param position the position of the requested string
+     * @return the string requested
+     */
     public String getItem(int position) {
         return boardLayout.get(position);
     }
-
     public long getItemId(int position) {
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
+    /**
+     * @param position the position of the view in the list
+     * @param convertView the view if it already exists
+     * @param parent the calling parent
+     * @return returns the ImageView
+     */
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
+
         ImageView imageView;
-        if (convertView == null) {
+        if (convertView == null)
             imageView = (ImageView) inflater.inflate(R.layout.g_image_view, null);
-        } else {
+        else
             imageView = (ImageView) convertView;
-        }
+
 
         imageView.setMinimumHeight(height);
 
@@ -63,7 +75,9 @@ public class BoardArrayAdapter extends BaseAdapter {
         return imageView;
     }
 
-    // references to our images
+    /**
+     * an array of the ids of the tile drawables
+     */
     private Integer[] tiles = {
             R.drawable.puzzle0,
             R.drawable.puzzle1, R.drawable.puzzle2,

@@ -97,7 +97,7 @@ public class NumberBoard extends Board {
     public static final Parcelable.Creator<NumberBoard> CREATOR
             = new Parcelable.Creator<NumberBoard>() {
         public NumberBoard createFromParcel(Parcel in) {
-            return new NumberBoard();
+            return new NumberBoard(in);
         }
         public NumberBoard[] newArray(int size) {
             return new NumberBoard[size];
@@ -105,7 +105,7 @@ public class NumberBoard extends Board {
     };
 
     private NumberBoard(Parcel in) {
-        Bundle bundle = in.readBundle();
+        Bundle bundle = in.readBundle(getClass().getClassLoader());
         board = (String[][]) bundle.getSerializable(ARG_BOARD);
         blankX = bundle.getInt(ARG_BLANKX);
         blankY = bundle.getInt(ARG_BLANKY);
