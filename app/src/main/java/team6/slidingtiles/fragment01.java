@@ -75,7 +75,6 @@ public class fragment01 extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(selectionHandler.handleSelection(i)) {
                 }
-
             }
         });
     }

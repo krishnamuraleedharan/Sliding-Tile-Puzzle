@@ -33,6 +33,7 @@
             android:src="@drawable/pause_menu"
             android:background="#000000"
             android:scaleType="fitXY"
+            android:padding="10dp"
             />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
