@@ -71,9 +71,10 @@ public class NumberMode extends GameMode implements BoardFragment.SelectionHandl
      * prompts the user to create a new game or exit
      */
     void complete(){
+        onPause();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("You Win!");
-        CharSequence options[] = new CharSequence[]{"New game", "quit"};
+        CharSequence options[] = new CharSequence[]{"New game", "Quit"};
 
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
@@ -89,7 +90,6 @@ public class NumberMode extends GameMode implements BoardFragment.SelectionHandl
             }
         });
 
-        pauseTimer();
         builder.setCancelable(false);
         builder.show();
     }

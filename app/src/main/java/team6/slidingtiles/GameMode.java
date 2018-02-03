@@ -44,6 +44,7 @@ public abstract class GameMode extends AppCompatActivity implements BoardFragmen
         menuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
+                pauseTimer();
                 pause().show();
             }
         });
@@ -139,6 +140,7 @@ public abstract class GameMode extends AppCompatActivity implements BoardFragmen
      */
     void newGame(){
         AlertDialog.Builder builder = newGameDialog();
+        pauseTimer();
         builder.show();
     }
 
@@ -176,7 +178,7 @@ public abstract class GameMode extends AppCompatActivity implements BoardFragmen
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (i){
                     case 0:
-                        onResume();
+                        resumeTimer();
                         break;
                     case 1:
                         newGame();
@@ -191,7 +193,7 @@ public abstract class GameMode extends AppCompatActivity implements BoardFragmen
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                onResume();
+                resumeTimer();
             }
         });
         return builder;
