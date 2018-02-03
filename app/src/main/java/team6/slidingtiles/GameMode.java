@@ -168,7 +168,7 @@ public abstract class GameMode extends AppCompatActivity implements BoardFragmen
      * @return Builder containing the pause menu
      */
     AlertDialog.Builder pause(){
-        CharSequence options[] = new CharSequence[]{"Resume", "New game", "quit"};
+        CharSequence options[] = new CharSequence[]{"Resume", "New game", "Quit"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.pause_menu);
         builder.setItems(options, new DialogInterface.OnClickListener() {
