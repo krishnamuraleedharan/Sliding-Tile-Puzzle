@@ -23,23 +23,11 @@ public class NumberMode extends GameMode implements fragment01.SelectionHandler 
     private static final String ARGS_GAMEBOARD = "gameBoard";
     private static final String ARGS_BOARDLAYOUT = "boardLayout";
     private static final String ARGS_BLANKTILE = "blankTile";
-    Chronometer timer;
-    long        timePaused;
-    NumberBoard gameBoard;
     ArrayList<String> boardLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         gameBoard = null;
-        timePaused = 0;
-        toolbarLayout = new LinearLayout(this);
-        timer = new Chronometer(this);
-        timer.setGravity(Gravity.CENTER);
-        timer.setTextSize(40);
-        timer.setTextColor(Color.parseColor("#ffffff"));
-
-        toolbarLayout.addView(timer);
-
         super.onCreate(savedInstanceState);
     }
 
@@ -87,41 +75,18 @@ public class NumberMode extends GameMode implements fragment01.SelectionHandler 
         super.onClick(view);
     }
 */
-    void pauseTimer(){
-        timePaused = timer.getBase() - SystemClock.elapsedRealtime();
-        timer.stop();
-    }
-
-    void resumeTimer(){
-        timer.setBase(SystemClock.elapsedRealtime() + timePaused);
-        timer.start();
-    }
-
-    void newGame() {
-        pauseTimer();
-        super.newGame();
-    }
 
     void createGame(){
         gameBoard = new NumberBoard(true, difficulty);
-        timer.setBase(SystemClock.elapsedRealtime());
-        timePaused = 0;
-        timer.start();
         SetBoard(gameBoard);
+        super.createGame();
     }
 
     boolean moveTile(int pos) {
-        int x = pos % 5;
-        int y = pos / 5;
-        if(gameBoard.swapTiles(x,y)) {
-            boardLayout = convertDimm(gameBoard.getBoard());
-            boardFragment.setBoardLayout(boardLayout);
-            blankTile = pos;
-            if(gameBoard.isComplete())
-                complete();
-            return true;
-        }
-        return false;
+        boolean success = super.moveTile(pos);
+        if(((NumberBoard)gameBoard).isComplete())
+            complete();
+        return success;
     }
 
     void complete(){

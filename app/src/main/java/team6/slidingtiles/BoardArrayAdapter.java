@@ -1,12 +1,14 @@
 package team6.slidingtiles;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
 import java.util.ArrayList;
@@ -22,10 +24,11 @@ public class BoardArrayAdapter extends BaseAdapter {
     private ArrayList<String> boardLayout;
     private int height;
 
-    public BoardArrayAdapter(Context context, ArrayList<String> boardLayout) {
+    public BoardArrayAdapter(Context context, ArrayList<String> boardLayout, int height) {
         super();
         this.context = context;
         this.boardLayout = boardLayout;
+        this.height = height/5;
     }
 
     public int getCount() {
@@ -43,7 +46,7 @@ public class BoardArrayAdapter extends BaseAdapter {
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(
-                context.LAYOUT_INFLATER_SERVICE);
+                Context.LAYOUT_INFLATER_SERVICE);
         ImageView imageView;
         if (convertView == null) {
             imageView = (ImageView) inflater.inflate(R.layout.g_image_view, null);
@@ -51,15 +54,13 @@ public class BoardArrayAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
+        imageView.setMinimumHeight(height);
+
         if (boardLayout.get(position).compareTo(" ") == 0)
-            imageView.setImageResource(tiles[0]);
+            imageView.setVisibility(View.INVISIBLE);
         else
             imageView.setImageResource(tiles[Integer.valueOf(boardLayout.get(position))]);
         return imageView;
-    }
-
-    void setHeight(int height){
-        this.height = height;
     }
 
     // references to our images

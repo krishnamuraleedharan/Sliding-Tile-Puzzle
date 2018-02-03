@@ -3,6 +3,7 @@ package team6.slidingtiles;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Layout;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,6 +20,7 @@ import android.widget.TableRow;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Timer;
 
 
 public abstract class GameMode extends AppCompatActivity implements fragment01.SelectionHandler {
@@ -25,10 +28,13 @@ public abstract class GameMode extends AppCompatActivity implements fragment01.S
     int         difficulty;
     Toolbar     toolbar;
     ImageView menuIcon;
-    LinearLayout toolbarLayout;
     fragment01 boardFragment;
     ArrayList<String> boardLayout;
     int blankTile;
+    Chronometer timer;
+    long        timePaused;
+    Board gameBoard;
+
 
 
     @Override
@@ -36,7 +42,6 @@ public abstract class GameMode extends AppCompatActivity implements fragment01.S
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_mode);
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(Color.parseColor("#000000"));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         boardFragment = fragment01.newInstance();
@@ -44,11 +49,10 @@ public abstract class GameMode extends AppCompatActivity implements fragment01.S
                 .add(R.id.fragmentFrame, boardFragment).commit();
 
 
-        menuIcon = new ImageView(this);
-        menuIcon.setImageDrawable(getDrawable(R.drawable.pause_menu));
-        menuIcon.setPadding(10,10,10,10);
-        menuIcon.setId(View.generateViewId());
-        menuIcon.setScaleType(ImageView.ScaleType.FIT_END);
+        timer = findViewById(R.id.timer);
+        timePaused = 0;
+
+        menuIcon = findViewById(R.id.menu_button);
         menuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -56,20 +60,23 @@ public abstract class GameMode extends AppCompatActivity implements fragment01.S
             }
         });
 
-        if (toolbarLayout == null)
-            toolbarLayout = new LinearLayout(this);
-
-        toolbarLayout.addView(menuIcon);
-        toolbar.addView(toolbarLayout);
-
-        difficulty = 0;
         newGame();
 
 
     }
 
+    void pauseTimer(){
+        timePaused = timer.getBase() - SystemClock.elapsedRealtime();
+        timer.stop();
+    }
+
+    void resumeTimer(){
+        timer.setBase(SystemClock.elapsedRealtime() + timePaused);
+        timer.start();
+    }
+
     AlertDialog.Builder newGameDialog() {
-        CharSequence options[] = new CharSequence[]{"easy", "normal", "hard"};
+        CharSequence options[] = new CharSequence[]{"Easy", "Normal", "Hard"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Difficulty");
         builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -77,13 +84,13 @@ public abstract class GameMode extends AppCompatActivity implements fragment01.S
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (i){
                     case 0:
-                        difficulty = 1;
+                        difficulty = 8;
                         break;
                     case 1:
-                        difficulty = 2;
+                        difficulty = 16;
                         break;
                     case 2:
-                        difficulty = 3;
+                        difficulty = 32;
                         break;
                 }
                 createGame();
@@ -108,16 +115,18 @@ public abstract class GameMode extends AppCompatActivity implements fragment01.S
     }
 
     void SetBoard(Board board) {
-
         boardLayout = convertDimm(board.getBoard());
         for(int i = 0; i < boardLayout.size(); i++)
             if (boardLayout.get(i).compareTo(" ")==0)
                 blankTile = i;
         boardFragment.setBoardLayout(boardLayout);
-
     }
 
-    abstract void createGame();
+    void createGame(){
+        timer.setBase(SystemClock.elapsedRealtime());
+        timePaused = 0;
+        timer.start();
+    }
 
     //displays the pause menu and pauses the timer
     AlertDialog.Builder pause(){
@@ -151,7 +160,17 @@ public abstract class GameMode extends AppCompatActivity implements fragment01.S
         return builder;
     }
 
-    abstract boolean moveTile(int pos);
+    boolean moveTile(int pos){
+        int x = pos % 5;
+        int y = pos / 5;
+        if(gameBoard.swapTiles(x,y)) {
+            boardLayout = convertDimm(gameBoard.getBoard());
+            boardFragment.setBoardLayout(boardLayout);
+            blankTile = pos;
+            return true;
+        }
+        return false;
+    }
 
     public boolean handleSelection(int pos){
         return moveTile(pos);

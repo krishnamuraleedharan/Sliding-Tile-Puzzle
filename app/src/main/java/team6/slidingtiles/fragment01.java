@@ -1,6 +1,7 @@
 package team6.slidingtiles;
 
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
@@ -60,13 +61,12 @@ public class fragment01 extends Fragment {
     }
 
     public static fragment01 newInstance() {
-        fragment01 f = new fragment01();
-        return f;
+        return new fragment01();
     }
 
     public void setBoardLayout(ArrayList<String> boardLayout) {
-        BoardArrayAdapter adapter = new BoardArrayAdapter(getView().getContext(), boardLayout);
-        adapter.setHeight(getView().getHeight());
+        BoardArrayAdapter adapter = new BoardArrayAdapter
+                (getView().getContext(), boardLayout, getView().getHeight());
         boardGrid = getView().findViewById(R.id.board_grid);
         boardGrid.invalidateViews();
         boardGrid.setAdapter(adapter);
