@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,8 +15,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class RegisterPage extends AppCompatActivity implements View.OnClickListener{
 
@@ -62,14 +66,36 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
 
+
+
+
         firebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        Toast.makeText(RegisterPage.this,"Inside auth",Toast.LENGTH_SHORT).show();
+
                         if(task.isSuccessful()){
                             Toast.makeText(RegisterPage.this,"Registered Successfully",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterPage.this,PlayerMode.class);
+                            startActivity(intent);
                         }
                         else{
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseAuthInvalidUserException e) {
+                                Toast.makeText(RegisterPage.this,"Issue with email",Toast.LENGTH_SHORT).show();
+
+                            } catch (FirebaseAuthInvalidCredentialsException e) {
+                                Toast.makeText(RegisterPage.this,"Issue with password",Toast.LENGTH_SHORT).show();
+
+                            } catch (FirebaseNetworkException e) {
+                                Toast.makeText(RegisterPage.this,"Network issue",Toast.LENGTH_SHORT).show();
+
+                            } catch (Exception e) {
+                                Toast.makeText(RegisterPage.this,"Firebase Exception",Toast.LENGTH_SHORT).show();
+                            }
+
                             Toast.makeText(RegisterPage.this,"Could not register",Toast.LENGTH_SHORT).show();
 
                         }
@@ -84,7 +110,6 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
             registerUser();
         }
         if(view == textViewLogin) {
-            Toast.makeText(RegisterPage.this,"login view",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegisterPage.this,SigninPage.class);
             startActivity(intent);
         }

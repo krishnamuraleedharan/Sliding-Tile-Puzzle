@@ -21,6 +21,7 @@
         <activity android:name=".NumberMode" />
         <activity android:name=".RegisterPage" />
         <activity android:name=".SigninPage" />
+        <activity android:name=".PlayerMode"></activity>
     </application>
 
 </manifest>
