@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Switch;
+
 import java.util.ArrayList;
 
 /**
@@ -66,11 +68,29 @@ public class BoardArrayAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
 
         imageView.setMinimumHeight(height);
-
-        if (boardLayout.get(position).compareTo(" ") == 0)
-            imageView.setVisibility(View.INVISIBLE);
-        else
-            imageView.setImageResource(tiles[Integer.valueOf(boardLayout.get(position))]);
+        switch (boardLayout.get(position)){
+            case " ":
+                imageView.setVisibility(View.INVISIBLE);
+                break;
+            case "+":
+                imageView.setImageResource(R.drawable.puzzle_add);
+                break;
+            case "-":
+                imageView.setImageResource(R.drawable.puzzle_sub);
+                break;
+            case "=":
+                imageView.setImageResource(R.drawable.puzzle_equal);
+                break;
+            case"/":
+                imageView.setImageResource(R.drawable.puzzle_divide);
+                break;
+            case "*":
+                imageView.setImageResource(R.drawable.puzzle_multiply);
+                break;
+            default:
+                imageView.setImageResource(tiles[Integer.valueOf(boardLayout.get(position))]);
+                break;
+        }
         return imageView;
     }
 
