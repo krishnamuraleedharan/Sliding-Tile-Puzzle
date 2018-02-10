@@ -1,11 +1,14 @@
 package team6.slidingtiles;
 
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * This class represents the number-based tile board.
  */
 
-public class NumberBoard extends Board<Integer> {
-    private final Integer BLANK = 0;
+public class NumberBoard extends Board {
 
     /**
      * Default NumberBoard constructor
@@ -27,22 +30,25 @@ public class NumberBoard extends Board<Integer> {
         }
 
         // create the board in a winning configuration
-        this.board = new Integer[Board.TILE_SIDE][Board.TILE_SIDE];
+        this.board = new String[Board.TILE_SIDE][Board.TILE_SIDE];
         int diff = isBlankLast ? 1 : 0;
         for (int i = 0; i < Board.TILE_COUNT; i++) {
-            this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE] = i + diff;
+            this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE] = Integer.toString(i + diff);
         }
 
         // add blank tile
         if (isBlankLast) {
-            this.board[Board.TILE_SIDE - 1][Board.TILE_SIDE - 1] = this.BLANK;
+            this.blankX = Board.TILE_SIDE - 1;
+            this.blankY = Board.TILE_SIDE - 1;
         } else {
-            this.board[0][0] = this.BLANK;
+            this.blankX = 0;
+            this.blankY = 0;
         }
+        this.board[this.blankY][this.blankX] = Board.BLANK;
 
         // shuffle the board per the difficulty setting (square of difficulty level)
         int shuffles = (int)(Math.pow(difficulty, 2));
-        shuffle(shuffles, isBlankLast);
+        shuffle(shuffles);
     }
 
     /**
@@ -51,17 +57,17 @@ public class NumberBoard extends Board<Integer> {
      */
     public boolean isComplete() {
         // blank tile is first
-        if (this.board[0][0].equals(this.BLANK)) {
+        if (this.board[0][0].equals(Board.BLANK)) {
             for (int i = 1; i < Board.TILE_COUNT; i++) {
-                if (this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE] != i) {
+                if (!this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE].equals(Integer.toString(i))) {
                     return false;
                 }
             }
             return true;
         // blank tile is last
-        } else if (this.board[Board.TILE_SIDE - 1][Board.TILE_SIDE - 1].equals(this.BLANK)) {
+        } else if (this.board[Board.TILE_SIDE - 1][Board.TILE_SIDE - 1].equals(Board.BLANK)) {
             for (int i = 0; i < Board.TILE_COUNT - 1; i++) {
-                if (this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE] != i + 1) {
+                if (!this.board[i / Board.TILE_SIDE][i % Board.TILE_SIDE].equals(Integer.toString(i + 1))) {
                     return false;
                 }
             }
@@ -72,11 +78,37 @@ public class NumberBoard extends Board<Integer> {
     }
 
     /**
-     * Get the blank tile representation
-     * @return blank tile Integer
+     * Creates a string representation of the NumberBoard
+     * @return a string version of the board
      */
-    Integer getBlank() {
-        return this.BLANK;
+    public String toString() {
+        int maxChars = Integer.toString(Board.TILE_COUNT - 1).length();
+        StringBuilder boardString = new StringBuilder("\n+----+----+----+----+----+");
+        for (int i = 0; i < Board.TILE_SIDE; i++) {
+            boardString.append("\n|");
+            for (int j = 0; j < Board.TILE_SIDE; j++) {
+                boardString.append(String.format("%"+ (maxChars + 1) + "s |", board[i][j]));
+            }
+            boardString.append("\n+----+----+----+----+----+");
+        }
+        return boardString.append("\n").toString();
+    }
+
+    public static final Parcelable.Creator<NumberBoard> CREATOR
+            = new Parcelable.Creator<NumberBoard>() {
+        public NumberBoard createFromParcel(Parcel in) {
+            return new NumberBoard(in);
+        }
+        public NumberBoard[] newArray(int size) {
+            return new NumberBoard[size];
+        }
+    };
+
+    private NumberBoard(Parcel in) {
+        Bundle bundle = in.readBundle(getClass().getClassLoader());
+        board = (String[][]) bundle.getSerializable(ARG_BOARD);
+        blankX = bundle.getInt(ARG_BLANKX);
+        blankY = bundle.getInt(ARG_BLANKY);
     }
 
 }

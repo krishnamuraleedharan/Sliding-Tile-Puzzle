@@ -9,4 +9,5 @@
     <string name="single_player">Single Player</string>
     <string name="player_basic">Two Player Basic Mode</string>
     <string name="player_cutthroat">Two Player Cutthroat Mode</string>
+    <string name="number_mode">Number mode</string>
 </resources>
